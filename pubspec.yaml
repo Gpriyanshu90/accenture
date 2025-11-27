@@ -60,6 +60,22 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/Accenture-Emblem.png
+    - assets/card1.jpg
+    - assets/card2.jpg
+    - assets/card3.jpg
+    - assets/card4.jpg
+    - assets/card5.jpg
+    - assets/card6.jpg
+    - assets/card7.jpg
+    - assets/card8.jpg
+    - assets/card9-jpg.webp
+    - assets/card10.jpg
+    - assets/card11.jpg
+    - assets/card12.jpg
+    - assets/card13.jpg
+    - assets/card14.jpg
+    - assets/card15.jpg
+
 
   #   - images/a_dot_ham.jpeg
 
