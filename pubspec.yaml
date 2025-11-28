@@ -75,6 +75,7 @@ flutter:
     - assets/card13.jpg
     - assets/card14.jpg
     - assets/card15.jpg
+    - assets/card16.jpg
 
 
   #   - images/a_dot_ham.jpeg
@@ -91,8 +92,7 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
-  #   - family: Schyler
-  #     fonts:
+  #   - family: Schyler   fonts:
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
