@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'tile_text_animation.dart';
-
-
 import 'home.dart';
 
 

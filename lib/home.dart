@@ -2,6 +2,7 @@ import 'package:accenture/reponsive.dart';
 import 'package:flutter/material.dart';
 
 class PageLayout extends StatefulWidget {
+
   const PageLayout({super.key, required this.title});
   final String title;
 
@@ -10,6 +11,20 @@ class PageLayout extends StatefulWidget {
 }
 
 class _PageLayoutState extends State<PageLayout> {
+  final ScrollController newsScrollController = ScrollController();
+  bool showMegaMenu = false;
+
+
+  // int selectedIndex = 0;
+  //
+  // List<String> newsList = [
+  //   "Accenture Launches “Physical AI \nOrchestrator” to Help Manufacturers Build \nSoftware-Defined Facilities",
+  //   "Accenture Helps Organizations Advance \nAgentic AI with Gemini Enterprise",
+  //   "Accenture to Announce First-Quarter Fiscal 2026 Results",
+  //   "OpenAI and Accenture Accelerate Enterprise \nReinvention with Advanced AI",
+  //   "Accenture Reports Fourth-Quarter and Full-\nYear Fiscal \n2025 Results",
+  // ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,79 +35,230 @@ class _PageLayoutState extends State<PageLayout> {
         child: Column(
           children: [
             bannerSection(context),
-            const SizedBox(height: 60),
+             SizedBox(height: 60),
+
             cardsSection(context),
-            const SizedBox(height: 80),
-            const QuoteSection(),
-            const SlideSection(),
-            taxtmsg(),
-            const SizedBox(height: 100),
+             SizedBox(height: 80),
+
+             QuoteSection(),
+
+             SlideSection(),
+
+             taxtmsg(),
+             SizedBox(height: 100),
           ],
         ),
       ),
     );
   }
 
-  // ---------------- TEXT MESSAGE SECTION -----------------
+  // ---- TEXT MESSAGE SECTION
   Widget taxtmsg() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 60),
+      padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 150),
+
       child: Row(
         children: [
           Expanded(
             flex: 1,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text("Accenture news",
+            child: Padding(
+              padding: const EdgeInsets.only(left: 80),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  Text(
+                    "Accenture news",
+                    style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
+                  ),
+
+                  SizedBox(height: 100),
+
+                  Text(
+                    "october 28, 2025",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+
+                  SizedBox(height: 10),
+
+                  // HORIZONTAL NEWS SCROLLER
+                  SingleChildScrollView(
+                    controller: newsScrollController,
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+
+                        newsTextItem(
+                          "Accenture Launches “Physical AI \nOrchestrator” to Help Manufacturers Build \nSoftware-Defined Facilities",
+                        ),
+
+                        newsTextItem(
+                          "Accenture Helps Organizations Advance \nAgentic AI with Gemini Enterprise",
+                        ),
+
+                        newsTextItem(
+                          "Accenture to Announce First-Quarter \nFiscal 2026 Results",
+                        ),
+
+                        newsTextItem(
+                          "openAI and Accenture Accelerate Enterprise \nReinvention with Advanced AI",
+                          fontSize: 50,
+                        ),
+
+                        newsTextItem(
+                          "Accenture Reports Fourth-Quarter and Full-\nYear Fiscal 2025 Results",
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 40),
+
+                  // LEFT & RIGHT SCROLL BUTTONS
+                  Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(color: Colors.grey),
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_back, color: Colors.white),
+                          onPressed: () {
+                            newsScrollController.animateTo(
+                              newsScrollController.offset - 400,
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeOut,
+                            );
+                          },
+                        ),
+                      ),
+
+                      SizedBox(width: 30),
+
+                      Container(
+                        decoration: BoxDecoration(color: Colors.grey),
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_forward, color: Colors.white),
+                          onPressed: () {
+                            newsScrollController.animateTo(
+                              newsScrollController.offset + 400,
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeOut,
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 280),
+
+                  Text(
+                    "Let there be change",
+                    style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
+                  ),
+
+                  SizedBox(height: 150),
+
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // LEFT FOOTER
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          FooterLink("Preference Center"),
+                          FooterLink("Careers"),
+                          FooterLink("About Us"),
+                          FooterLink("Contact Us"),
+                          FooterLink("Locations"),
+                          FooterLink("Sitemap"),
+                        ],
+                      ),
+
+                      SizedBox(width: 120),
+
+                      // RIGHT FOOTER
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          FooterLink("Privacy Statement"),
+                          FooterLink("Terms & Conditions"),
+                          FooterLink("Cookie Policy/Settings"),
+                          FooterLink("Accessibility Statement"),
+                          FooterLink("Do Not Sell/Share My\nPersonal Information"),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 80),
+
+                  Text(
+                    "© 2025 Accenture. All Rights Reserved.",
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold)),
-                const SizedBox(height: 40),
-
-                const Text("April 28, 2025",
-                    style: TextStyle(color: Colors.white70, fontSize: 14)),
-                const SizedBox(height: 10),
-
-                const Text(
-                  "Accenture Introduces the First Platform\n"
-                      "to Allow Seamless, First-of-its-kind Multi-\n"
-                      "System AI Agent Collaboration",
-                  style: TextStyle(
                       color: Colors.white,
-                      fontSize: 30,
-                      height: 1.3,
-                      fontWeight: FontWeight.w700),
-                ),
+                      fontSize: 20,
+                    ),
+                  ),
 
-                const SizedBox(height: 40),
-
-                Row(
-                  children: [
-                    _arrowBox(Icons.arrow_back),
-                    const SizedBox(width: 20),
-                    _arrowBox(Icons.arrow_forward),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
-  // ---------------- ARROW BUTTON BOX -----------------
-  Widget _arrowBox(IconData icon) {
-    return Container(
-      height: 48,
-      width: 48,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade900,
-        borderRadius: BorderRadius.circular(4),
+
+// Helper widget for news text
+  Widget newsTextItem(String text, {double fontSize = 40}) {
+    return Row(
+      children: [
+        Text(
+          text,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: fontSize,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        SizedBox(width: 200),
+      ],
+    );
+  }
+
+}
+
+
+  // --------ARROW BUTTON BOX
+  // Widget _arrowBox(IconData icon) {
+  //   return Container(
+  //     height: 48,
+  //     width: 48,
+  //     decoration: BoxDecoration(
+  //       color: Colors.grey.shade900,
+  //       borderRadius: BorderRadius.circular(4),
+  //     ),
+  //     child: Icon(icon, color: Colors.white, size: 28),
+  //   );
+  // }
+
+
+class FooterLink extends StatelessWidget {
+  final String text;
+  const FooterLink(this.text, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+        ),
       ),
-      child: Icon(icon, color: Colors.white, size: 28),
     );
   }
 }
@@ -100,10 +266,7 @@ class _PageLayoutState extends State<PageLayout> {
 
 
 
-
-//
-// -------------------------- APPBAR ----------------------------
-//
+// ---------APPBAR
 PreferredSizeWidget buildAppbar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.black,
@@ -167,9 +330,8 @@ PreferredSizeWidget buildAppbar(BuildContext context) {
 
 }
 
-//
-// -------------------------- BANNER ----------------------------
-//
+
+// ------ BANNER
 Widget bannerSection(BuildContext context) {
 
   // ---------------- MOBILE ----------------
@@ -361,11 +523,12 @@ Widget rightSideText() {
           const SizedBox(width: 10),
 
           Container(
-            padding:  EdgeInsets.all(8),
-            decoration:  BoxDecoration(
-                color: Color(0xFF6F00B3), shape: BoxShape.rectangle),
-            child:  Icon(Icons.arrow_forward,
-                size: 18, color: Colors.white),
+            decoration:  BoxDecoration(color: Color(0xFF6F00B3),shape: BoxShape.rectangle,),
+            child:  IconButton(
+              icon: Icon(Icons.chevron_right, color: Colors.white),
+              onPressed:
+                  () {},
+            ),
           ),
         ],
       ),
@@ -373,9 +536,9 @@ Widget rightSideText() {
   );
 }
 
-//
-// ------------------------- CARDS -----------------------------
-//
+
+// -------- CARDS
+
 Widget cardsSection(BuildContext context) {
   return Padding(
     padding:  EdgeInsets.all(80),
@@ -398,9 +561,8 @@ Widget cardsSection(BuildContext context) {
   );
 }
 
-//
-// -------------------------- NAV ITEM ----------------------------
-//
+// ------ NAV ITEM
+
 class NavItem extends StatelessWidget {
   final String title;
   const NavItem({super.key, required this.title});
@@ -415,9 +577,8 @@ class NavItem extends StatelessWidget {
   }
 }
 
-//
-// --------------------- CARD ITEM WIDGET ------------------------
-//
+// ------ CARD ITEM WIDGET
+
 class CardItem extends StatelessWidget {
   final String label;
   final String title;
@@ -443,7 +604,7 @@ class CardItem extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         alignment: Alignment.topLeft,
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.25),
+          color: Colors.black.withOpacity(0.30),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
@@ -467,9 +628,9 @@ class CardItem extends StatelessWidget {
   }
 }
 
-//
-// ------------------------ QUOTE SECTION -------------------------
-//
+
+// ----- QUOTE SECTION
+
 class QuoteSection extends StatelessWidget {
   const QuoteSection({super.key});
 
@@ -540,11 +701,12 @@ class QuoteSection extends StatelessWidget {
              SizedBox(width: 10),
 
             Container(
-              padding:  EdgeInsets.all(8),
-              decoration:  BoxDecoration(
-                  color: Color(0xFF6F00B3), shape: BoxShape.rectangle),
-              child:  Icon(Icons.arrow_forward,
-                  size: 18, color: Colors.white),
+              decoration:  BoxDecoration(color: Color(0xFF6F00B3),shape: BoxShape.rectangle,),
+              child:  IconButton(
+                icon: Icon(Icons.chevron_right, color: Colors.white),
+                onPressed:
+                    () {},
+              ),
             ),
           ],
         ),
@@ -601,9 +763,9 @@ class QuoteSection extends StatelessWidget {
   }
 }
 
-//
-// ------------------------ SLIDE SECTION -------------------------
-//
+
+// -------- SLIDE SECTION
+
 class SlideSection extends StatelessWidget {
   const SlideSection({super.key});
 
@@ -672,13 +834,13 @@ class SlideSection extends StatelessWidget {
             ],
           ),
 
-           SizedBox(height: 220),
+           SizedBox(height: 250),
 
           //
           // GLOBAL RECOGNITION
           //
           Text(
-            "Global recognition and awards",
+            "Global recognition and \n awards",
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.white,
@@ -686,12 +848,12 @@ class SlideSection extends StatelessWidget {
                   ? 55
                   : Responsive.isTablet(context)
                   ? 90
-                  : 140,
+                  : 120,
               fontWeight: FontWeight.w900,
             ),
           ),
 
-          const SizedBox(height: 150),
+           SizedBox(height: 250),
 
           //
           // LAST CAREERS SECTION
@@ -732,7 +894,7 @@ class SlideSection extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 60),
+                 SizedBox(width: 60),
                 Expanded(child: careersText()),
               ],
             ),
