@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 
 const TextStyle menuText = TextStyle(
   color: Colors.white,
-  fontSize: 16,
+  fontSize: 20,
   fontWeight: FontWeight.w400,
 );
+
 
 
 class PageLayout extends StatefulWidget {
@@ -24,6 +25,28 @@ class _PageLayoutState extends State<PageLayout> {
   String activeMenu = "";
 
 
+  Widget hoverText(String title) {
+    bool isHover = false;
+
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return MouseRegion(
+          onEnter: (_) => setState(() => isHover = true),
+          onExit: (_) => setState(() => isHover = false),
+
+          child: AnimatedDefaultTextStyle(
+            duration: Duration(milliseconds: 150),
+            style: TextStyle(
+              color: isHover ? Colors.purple : Colors.white,
+              fontSize: 20,
+              fontWeight: isHover ? FontWeight.w600 : FontWeight.w400,
+            ),
+            child: Text(title),
+          ),
+        );
+      },
+    );
+  }
 
   // int selectedIndex = 0;
   //
@@ -41,37 +64,50 @@ class _PageLayoutState extends State<PageLayout> {
       backgroundColor: Colors.black,
       appBar: buildAppbar(context),
 
-        body: Column(
+        body: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            if (showMegaMenu) {
+              setState(() {
+                showMegaMenu = false;
+                activeMenu = "";      // 🔥 Active menu reset
+              });
+            }
+          },
+
+          child: Column(
             children: [
+
+              // 🔽 Dropdowns
               if (showMegaMenu && activeMenu == "what") buildMegaMenu(),
               if (showMegaMenu && activeMenu == "who") buildWhoWeAreMenu(),
               if (showMegaMenu && activeMenu == "careers") buildCareersMenu(),
 
-              // << ADD THIS
-    Expanded(
-    child: SingleChildScrollView(
-    child: Column(
-          children: [
-            bannerSection(context),
-             SizedBox(height: 60),
+              // 🔽 Page Content
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      bannerSection(context),
+                      SizedBox(height: 60),
 
-            cardsSection(context),
-             SizedBox(height: 80),
+                      cardsSection(context),
+                      SizedBox(height: 80),
 
-             QuoteSection(),
-
-             SlideSection(),
-
-             taxtmsg(),
-             SizedBox(height: 100),
-          ],
-        ),
-      ),
-    )
-            ]
+                      QuoteSection(),
+                      SlideSection(),
+                      taxtmsg(),
+                      SizedBox(height: 100),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         )
     );
-  }
+
+        }
 
 
   // ---------APPBAR
@@ -99,7 +135,8 @@ class _PageLayoutState extends State<PageLayout> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   NavItem(
-                    title: "What we do  ▼",
+                    title: "What we do ▼",
+                    hoverText: "What we do ▼",
                     onTap: () {
                       setState(() {
                         activeMenu = "what";
@@ -108,10 +145,19 @@ class _PageLayoutState extends State<PageLayout> {
                     },
                   ),
 
-                  NavItem(title: "What we think "),
+
+                  NavItem(
+                      title: "What we think ",
+                    hoverText: "What we think",
+                    onTap: () {
+                      setState(() {});
+                    },
+                  ),
+
                   NavItem(
                     title: "Who we are ▼",
-                    onTap: () {
+                    hoverText:"Who we are ▼",
+                      onTap: () {
                       setState(() {
                         activeMenu = "who";
                         showMegaMenu = !showMegaMenu;
@@ -122,6 +168,7 @@ class _PageLayoutState extends State<PageLayout> {
 
                   NavItem(
                     title: "Careers ▼",
+                    hoverText: "Careers ▼",
                     onTap: () {
                       setState(() {
                         activeMenu = "careers";
@@ -129,8 +176,7 @@ class _PageLayoutState extends State<PageLayout> {
                       });
                     },
                   ),
-
-                ],
+                  ],
               ),
             ),
         ],
@@ -159,7 +205,7 @@ class _PageLayoutState extends State<PageLayout> {
     );
   }
 
-  // ---- TEXT MESSAGE SECTION
+  // ---- TEXT MESSAGE
   Widget taxtmsg() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 150),
@@ -188,7 +234,7 @@ class _PageLayoutState extends State<PageLayout> {
 
                   SizedBox(height: 10),
 
-                  // HORIZONTAL NEWS SCROLLER
+                  // HORIZONTAL ROW
                   SingleChildScrollView(
                     controller: newsScrollController,
                     scrollDirection: Axis.horizontal,
@@ -221,7 +267,7 @@ class _PageLayoutState extends State<PageLayout> {
 
                   SizedBox(height: 40),
 
-                  // LEFT & RIGHT SCROLL BUTTONS
+                  // L&R SCROLL BUTTONS
                   Row(
                     children: [
                       Container(
@@ -230,8 +276,8 @@ class _PageLayoutState extends State<PageLayout> {
                           icon: Icon(Icons.arrow_back, color: Colors.white),
                           onPressed: () {
                             newsScrollController.animateTo(
-                              newsScrollController.offset - 400,
-                              duration: Duration(milliseconds: 300),
+                              newsScrollController.offset - 700,
+                              duration: Duration(milliseconds: 500),
                               curve: Curves.easeOut,
                             );
                           },
@@ -246,8 +292,8 @@ class _PageLayoutState extends State<PageLayout> {
                           icon: Icon(Icons.arrow_forward, color: Colors.white),
                           onPressed: () {
                             newsScrollController.animateTo(
-                              newsScrollController.offset + 400,
-                              duration: Duration(milliseconds: 300),
+                              newsScrollController.offset + 900,
+                              duration: Duration(milliseconds: 500),
                               curve: Curves.easeOut,
                             );
                           },
@@ -272,14 +318,25 @@ class _PageLayoutState extends State<PageLayout> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          FooterLink("Preference Center"),
-                          FooterLink("Careers"),
-                          FooterLink("About Us"),
-                          FooterLink("Contact Us"),
-                          FooterLink("Locations"),
-                          FooterLink("Sitemap"),
+                          hoverText("Preference Center"),
+                          SizedBox(height: 20),
+
+                          hoverText("Careers"),
+                          SizedBox(height: 20),
+
+                          hoverText("About Us"),
+                          SizedBox(height: 20),
+
+                          hoverText("Contact Us"),
+                          SizedBox(height: 20),
+
+                          hoverText("Locations"),
+                          SizedBox(height: 20),
+
+                          hoverText("Sitemap"),
                         ],
                       ),
+
 
                       SizedBox(width: 120),
 
@@ -287,11 +344,17 @@ class _PageLayoutState extends State<PageLayout> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          FooterLink("Privacy Statement"),
-                          FooterLink("Terms & Conditions"),
-                          FooterLink("Cookie Policy/Settings"),
-                          FooterLink("Accessibility Statement"),
-                          FooterLink("Do Not Sell/Share My\nPersonal Information"),
+                          hoverText("Privacy Statement"),
+                          SizedBox(height: 20),
+
+                          hoverText("Terms & Conditions"),
+                          SizedBox(height: 20),
+
+                          hoverText("Cookie Policy/Settings"),
+                          SizedBox(height: 20),
+
+                          hoverText("Accessibility Statement"),
+                          SizedBox(height: 20),
                         ],
                       ),
                     ],
@@ -326,7 +389,8 @@ class _PageLayoutState extends State<PageLayout> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
-          // ---------------- LEFT Section ----------------
+
+          // -----What we do
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -352,33 +416,33 @@ class _PageLayoutState extends State<PageLayout> {
                 Wrap(
                   spacing: 40,
                   runSpacing: 15,
-                  children: const [
-                    Text("Cloud", style: menuText),
-                    Text("Customer Service", style: menuText),
-                    Text("Cybersecurity", style: menuText),
-                    Text("Data and Artificial Intelligence", style: menuText),
-                    Text("Digital Engineering and Manufacturing", style: menuText),
-                    Text("Ecosystem Partners", style: menuText),
-                    Text("Emerging Technology", style: menuText),
-                    Text("Finance and Risk Management", style: menuText),
-                    Text("Infrastructure and Capital Projects", style: menuText),
-                    Text("Learning", style: menuText),
-                    Text("Managed Services", style: menuText),
-                    Text("Marketing and Experience", style: menuText),
-                    Text("Metaverse", style: menuText),
-                    Text("Sales and Commerce", style: menuText),
-                    Text("Strategy", style: menuText),
-                    Text("Supply Chain", style: menuText),
-                    Text("Sustainability", style: menuText),
-                    Text("Talent and Organization", style: menuText),
-                    Text("Technology Transformation", style: menuText),
+                  children:  [
+                    hoverText("Cloud"),
+                    hoverText("Customer Service"),
+                    hoverText("Cybersecurity"),
+                    hoverText("Data and Artificial Intelligence"),
+                    hoverText("Digital Engineering and Manufacturing"),
+                    hoverText("Ecosystem Partners"),
+                    hoverText("Emerging Technology"),
+                    hoverText("Finance and Risk Management"),
+                    hoverText("Infrastructure and Capital Projects"),
+                    hoverText("Learning"),
+                    hoverText("Managed Services"),
+                    hoverText("Marketing and Experience"),
+                    hoverText("Metaverse"),
+                    hoverText("Sales and Commerce"),
+                    hoverText("Strategy"),
+                    hoverText("Supply Chain"),
+                    hoverText("Sustainability"),
+                    hoverText("Talent and Organization"),
+                    hoverText("Technology Transformation"),
                   ],
                 ),
               ],
             ),
           ),
 
-          // ---------------- RIGHT Section ----------------
+          // What we do
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -392,27 +456,27 @@ class _PageLayoutState extends State<PageLayout> {
                 Wrap(
                   spacing: 40,
                   runSpacing: 15,
-                  children: const [
-                    Text("Aerospace and Defense", style: menuText),
-                    Text("Automotive", style: menuText),
-                    Text("Banking", style: menuText),
-                    Text("Capital Markets", style: menuText),
-                    Text("Chemicals", style: menuText),
-                    Text("Communications and Media", style: menuText),
-                    Text("Consumer Goods and Services", style: menuText),
-                    Text("Energy", style: menuText),
-                    Text("Health", style: menuText),
-                    Text("High Tech", style: menuText),
-                    Text("Industrial", style: menuText),
-                    Text("Insurance", style: menuText),
-                    Text("Life Sciences", style: menuText),
-                    Text("Natural Resources", style: menuText),
-                    Text("Public Service", style: menuText),
-                    Text("Private Equity", style: menuText),
-                    Text("Retail", style: menuText),
-                    Text("Software and Platforms", style: menuText),
-                    Text("Travel", style: menuText),
-                    Text("Utilities", style: menuText),
+                  children:  [
+                    hoverText("Aerospace and Defense"),
+                    hoverText("Automotive"),
+                    hoverText("Banking"),
+                    hoverText("Capital Markets"),
+                    hoverText("Chemicals"),
+                    hoverText("Communications and Media"),
+                    hoverText("Consumer Goods and Services"),
+                    hoverText("Energy"),
+                    hoverText("Health"),
+                    hoverText("High Tech"),
+                    hoverText("Industrial"),
+                    hoverText("Insurance"),
+                    hoverText("Life Sciences"),
+                    hoverText("Natural Resources"),
+                    hoverText("Public Service"),
+                    hoverText("Private Equity"),
+                    hoverText("Retail"),
+                    hoverText("Software and Platforms"),
+                    hoverText("Travel"),
+                    hoverText("Utilities"),
                   ],
                 ),
               ],
@@ -424,6 +488,7 @@ class _PageLayoutState extends State<PageLayout> {
     );
   }
 
+  // Who we do
   Widget buildWhoWeAreMenu() {
     return Container(
       width: double.infinity,
@@ -451,63 +516,63 @@ class _PageLayoutState extends State<PageLayout> {
 
           SizedBox(height: 40),
 
-          // 3 COLUMNS ------------------------------------------
+          // 3 COLUMNS 
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // COLUMN 1 -----------------------------
+              // COLUMN 1 
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children:  [
                     Text("Our organization",
                         style: TextStyle(color: Colors.white70, fontSize: 18)),
                     SizedBox(height: 20),
 
-                    Text("Awards and Recognition", style: menuText),
-                    Text("Corporate Sustainability", style: menuText),
-                    Text("Industry Analyst Recognition", style: menuText),
-                    Text("Leaders", style: menuText),
-                    Text("Locations", style: menuText),
-                    Text("360° Value Report", style: menuText),
+                    hoverText("Awards and Recognition"),
+                    hoverText("Corporate Sustainability"),
+                    hoverText("Industry Analyst Recognition"),
+                    hoverText("Leaders"),
+                    hoverText("Locations"),
+                    hoverText("360° Value Report"),
                   ],
                 ),
               ),
 
               SizedBox(width: 100),
 
-              // COLUMN 2 -----------------------------
+              // COLUMN 2
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children:  [
                     Text("Media & Investors",
                         style: TextStyle(color: Colors.white70, fontSize: 18)),
                     SizedBox(height: 20),
 
-                    Text("Media Relations", style: menuText),
-                    Text("Investor Relations", style: menuText),
-                    Text("Board of Directors", style: menuText),
+                    hoverText("Media Relations"),
+                    hoverText("Investor Relations"),
+                    hoverText("Board of Directors"),
                   ],
                 ),
               ),
 
               SizedBox(width: 100),
 
-              // COLUMN 3 -----------------------------
+              // COLUMN 3
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children:  [
                     Text("How we serve",
                         style: TextStyle(color: Colors.white70, fontSize: 18)),
                     SizedBox(height: 20),
 
-                    Text("Strategy and Consulting", style: menuText),
-                    Text("Technology", style: menuText),
-                    Text("Operations", style: menuText),
-                    Text("Industry X", style: menuText),
-                    Text("Song", style: menuText),
+                    hoverText("Strategy and Consulting"),
+                    hoverText("Technology"),
+                    hoverText("Operations"),
+                    hoverText("Industry X"),
+                    hoverText("Song"),
                   ],
                 ),
               ),
@@ -518,6 +583,7 @@ class _PageLayoutState extends State<PageLayout> {
     );
   }
 
+  // career
   Widget buildCareersMenu() {
     return Container(
       width: double.infinity,
@@ -545,59 +611,59 @@ class _PageLayoutState extends State<PageLayout> {
 
           SizedBox(height: 40),
 
-          // CONTENT: 3 COLUMNS --------------------------------
+          // CONTENT: 3 COLUMNS 
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              // COLUMN 1 : Find a job ------------------------
+              // COLUMN 1 : Find a job 
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children:  [
                     Text("Find a job",
                         style: TextStyle(color: Colors.white70, fontSize: 18)),
                     SizedBox(height: 20),
 
-                    Text("Search for jobs", style: menuText),
-                    Text("Career areas", style: menuText),
+                    hoverText("Search for jobs"),
+                    hoverText("Career areas"),
                   ],
                 ),
               ),
 
               SizedBox(width: 100),
 
-              // COLUMN 2 : Life at Accenture ----------------
+              // COLUMN 2 : 
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children:  [
                     Text("Life at Accenture",
                         style: TextStyle(color: Colors.white70, fontSize: 18)),
                     SizedBox(height: 20),
 
-                    Text("Working here", style: menuText),
-                    Text("Benefits", style: menuText),
-                    Text("Work environment", style: menuText),
-                    Text("Careers blog", style: menuText),
+                    hoverText("Working here"),
+                    hoverText("Benefits"),
+                    hoverText("Work environment"),
+                    hoverText("Careers blog"),
                   ],
                 ),
               ),
 
               SizedBox(width: 100),
 
-              // COLUMN 3 : How we hire ----------------------
+              // COLUMN 3 : 
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children:  [
                     Text("How we hire",
                         style: TextStyle(color: Colors.white70, fontSize: 18)),
                     SizedBox(height: 20),
 
-                    Text("Using AI", style: menuText),
-                    Text("Hiring journey", style: menuText),
-                    Text("Pro tips", style: menuText),
+                    hoverText("Using AI"),
+                    hoverText("Hiring journey"),
+                    hoverText("Pro tips"),
                   ],
                 ),
               ),
@@ -607,7 +673,6 @@ class _PageLayoutState extends State<PageLayout> {
       ),
     );
   }
-
 
 
 
@@ -645,25 +710,25 @@ class _PageLayoutState extends State<PageLayout> {
   //   );
   // }
 
-
-class FooterLink extends StatelessWidget {
-  final String text;
-  const FooterLink(this.text, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 20,
-        ),
-      ),
-    );
-  }
-}
+//distance maintain
+// class FooterLink extends StatelessWidget {
+//   final String text;
+//   const FooterLink(this.text, {super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(vertical: 8),
+//       child: Text(
+//         text,
+//         style: const TextStyle(
+//           color: Colors.white,
+//           fontSize: 20,
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 
 // ------ BANNER
@@ -767,7 +832,7 @@ Widget bannerSection(BuildContext context) {
                 ),
               ),
 
-              // Auto-scale REIN>ENTED
+              // REIN>ENTED
               Align(
                 alignment: Alignment.centerLeft,
                 child: Transform.translate(
@@ -817,7 +882,7 @@ Widget bannerSection(BuildContext context) {
         // RIGHT SIDE – NO TOP PADDING
         Expanded(
           child: Align(
-            alignment: Alignment.topLeft,   // ⭐ PERFECT ALIGNMENT
+            alignment: Alignment.topLeft,   
             child: rightSideText(),
           ),
         ),
@@ -880,7 +945,7 @@ Widget cardsSection(BuildContext context) {
     child: Wrap(
       spacing: 90,
       runSpacing: 30,
-      alignment: WrapAlignment.spaceBetween,
+      alignment: WrapAlignment.spaceEvenly,
       children:  [
         CardItem(label: "RESEARCH REPORT", title: "Holiday Shopping 2025: Tis the season for smarter spending and renewed confidence", image: "assets/card1.jpg"),
         CardItem(label: "RESEARCH REPORT", title: "Destination net zero 2025", image: "assets/card2.jpg"),
@@ -898,21 +963,48 @@ Widget cardsSection(BuildContext context) {
 
 // ------ NAV ITEM
 
-class NavItem extends StatelessWidget {
+class NavItem extends StatefulWidget {
   final String title;
-  final VoidCallback? onTap;
+  final String hoverText;
+  final VoidCallback onTap;
 
-  const NavItem({super.key, required this.title, this.onTap});
+  const NavItem({
+    super.key,
+    required this.title,
+    required this.hoverText,
+    required this.onTap,
+  });
+
+  @override
+  State<NavItem> createState() => _NavItemState();
+}
+
+class _NavItemState extends State<NavItem> {
+  bool isHovering = false;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,   // NOW CLICK WORKS
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18),
-        child: Text(
-          title,
-          style: const TextStyle(color: Colors.white, fontSize: 18),
+    return MouseRegion(
+      onEnter: (_) => setState(() => isHovering = true),
+      onExit: (_) => setState(() => isHovering = false),
+
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedDefaultTextStyle(
+          duration: Duration(milliseconds: 200),
+          style: TextStyle(
+            color: isHovering ? Colors.white : Colors.white70,
+            fontSize: 18,
+            fontWeight: isHovering ? FontWeight.bold : FontWeight.w500,
+          ),
+
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+
+            child: Text(
+              isHovering ? widget.hoverText : widget.title,
+            ),
+          ),
         ),
       ),
     );
@@ -920,7 +1012,8 @@ class NavItem extends StatelessWidget {
 }
 
 
-// ------ CARD ITEM WIDGET
+
+// ------ CARD ITEM WIDGET   image k liye text wgra
 
 class CardItem extends StatelessWidget {
   final String label;
@@ -938,9 +1031,9 @@ class CardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 500,
-      width: 300,
+      width: 320,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(10),
         image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
       ),
       child: Container(
@@ -955,10 +1048,10 @@ class CardItem extends StatelessWidget {
           children: [
             Text(label,
                 style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold)),
-            const SizedBox(height: 10),
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700)),
+             SizedBox(height: 20),
             Text(title,
                 style: const TextStyle(
                     color: Colors.white,
