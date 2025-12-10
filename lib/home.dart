@@ -1,6 +1,14 @@
 import 'package:accenture/reponsive.dart';
 import 'package:flutter/material.dart';
 
+
+const TextStyle menuText = TextStyle(
+  color: Colors.white,
+  fontSize: 16,
+  fontWeight: FontWeight.w400,
+);
+
+
 class PageLayout extends StatefulWidget {
 
   const PageLayout({super.key, required this.title});
@@ -13,6 +21,8 @@ class PageLayout extends StatefulWidget {
 class _PageLayoutState extends State<PageLayout> {
   final ScrollController newsScrollController = ScrollController();
   bool showMegaMenu = false;
+  String activeMenu = "";
+
 
 
   // int selectedIndex = 0;
@@ -31,8 +41,16 @@ class _PageLayoutState extends State<PageLayout> {
       backgroundColor: Colors.black,
       appBar: buildAppbar(context),
 
-      body: SingleChildScrollView(
-        child: Column(
+        body: Column(
+            children: [
+              if (showMegaMenu && activeMenu == "what") buildMegaMenu(),
+              if (showMegaMenu && activeMenu == "who") buildWhoWeAreMenu(),
+              if (showMegaMenu && activeMenu == "careers") buildCareersMenu(),
+
+              // << ADD THIS
+    Expanded(
+    child: SingleChildScrollView(
+    child: Column(
           children: [
             bannerSection(context),
              SizedBox(height: 60),
@@ -49,6 +67,95 @@ class _PageLayoutState extends State<PageLayout> {
           ],
         ),
       ),
+    )
+            ]
+        )
+    );
+  }
+
+
+  // ---------APPBAR
+  PreferredSizeWidget buildAppbar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.black,
+      titleSpacing: 0,
+      toolbarHeight: 90,
+      title: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 40, top: 10),
+            child: SizedBox(
+              height: 60,
+              width: 90,
+              child: Image.asset('assets/Accenture-Emblem.png', fit: BoxFit.contain),
+            ),
+          ),
+
+          const SizedBox(width: 40),
+
+          if (!Responsive.isMobile(context))
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  NavItem(
+                    title: "What we do  ▼",
+                    onTap: () {
+                      setState(() {
+                        activeMenu = "what";
+                        showMegaMenu = !showMegaMenu;
+                      });
+                    },
+                  ),
+
+                  NavItem(title: "What we think "),
+                  NavItem(
+                    title: "Who we are ▼",
+                    onTap: () {
+                      setState(() {
+                        activeMenu = "who";
+                        showMegaMenu = !showMegaMenu;
+                      });
+                    },
+                  ),
+
+
+                  NavItem(
+                    title: "Careers ▼",
+                    onTap: () {
+                      setState(() {
+                        activeMenu = "careers";
+                        showMegaMenu = !showMegaMenu;
+                      });
+                    },
+                  ),
+
+                ],
+              ),
+            ),
+        ],
+      ),
+
+      actions: [
+        const Padding(
+          padding: EdgeInsets.only(top: 20, right: 20),
+          child: Icon(Icons.search, color: Colors.white),
+        ),
+
+        if (Responsive.isDesktop(context))
+          Padding(
+            padding: const EdgeInsets.only(top: 20, right: 50),
+            child: Row(
+              children: const [
+                Icon(Icons.language, color: Colors.white),
+                SizedBox(width: 10),
+                Text("United Kingdom",
+                    style: TextStyle(color: Colors.white, fontSize: 17)),
+                Icon(Icons.keyboard_arrow_down, color: Colors.white),
+              ],
+            ),
+          ),
+      ],
     );
   }
 
@@ -74,10 +181,10 @@ class _PageLayoutState extends State<PageLayout> {
 
                   SizedBox(height: 100),
 
-                  Text(
-                    "october 28, 2025",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
+                  // Text(
+                  //   "october 28, 2025",
+                  //   style: TextStyle(color: Colors.white, fontSize: 18),
+                  // ),
 
                   SizedBox(height: 10),
 
@@ -209,6 +316,301 @@ class _PageLayoutState extends State<PageLayout> {
     );
   }
 
+  Widget buildMegaMenu() {
+    return Container(
+      width: double.infinity,
+      color: Colors.black,
+      padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 40),
+
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+
+          // ---------------- LEFT Section ----------------
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                Row(
+                  children: const [
+                    Text("What we do",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold)),
+                    SizedBox(width: 10),
+                    Icon(Icons.arrow_drop_up, color: Colors.purple, size: 30)
+                  ],
+                ),
+                SizedBox(height: 30),
+
+                Text("Capabilities",
+                    style: TextStyle(color: Colors.white70, fontSize: 18)),
+                SizedBox(height: 20),
+
+                Wrap(
+                  spacing: 40,
+                  runSpacing: 15,
+                  children: const [
+                    Text("Cloud", style: menuText),
+                    Text("Customer Service", style: menuText),
+                    Text("Cybersecurity", style: menuText),
+                    Text("Data and Artificial Intelligence", style: menuText),
+                    Text("Digital Engineering and Manufacturing", style: menuText),
+                    Text("Ecosystem Partners", style: menuText),
+                    Text("Emerging Technology", style: menuText),
+                    Text("Finance and Risk Management", style: menuText),
+                    Text("Infrastructure and Capital Projects", style: menuText),
+                    Text("Learning", style: menuText),
+                    Text("Managed Services", style: menuText),
+                    Text("Marketing and Experience", style: menuText),
+                    Text("Metaverse", style: menuText),
+                    Text("Sales and Commerce", style: menuText),
+                    Text("Strategy", style: menuText),
+                    Text("Supply Chain", style: menuText),
+                    Text("Sustainability", style: menuText),
+                    Text("Talent and Organization", style: menuText),
+                    Text("Technology Transformation", style: menuText),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          // ---------------- RIGHT Section ----------------
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 70),
+
+                Text("Industries",
+                    style: TextStyle(color: Colors.white70, fontSize: 18)),
+                SizedBox(height: 20),
+
+                Wrap(
+                  spacing: 40,
+                  runSpacing: 15,
+                  children: const [
+                    Text("Aerospace and Defense", style: menuText),
+                    Text("Automotive", style: menuText),
+                    Text("Banking", style: menuText),
+                    Text("Capital Markets", style: menuText),
+                    Text("Chemicals", style: menuText),
+                    Text("Communications and Media", style: menuText),
+                    Text("Consumer Goods and Services", style: menuText),
+                    Text("Energy", style: menuText),
+                    Text("Health", style: menuText),
+                    Text("High Tech", style: menuText),
+                    Text("Industrial", style: menuText),
+                    Text("Insurance", style: menuText),
+                    Text("Life Sciences", style: menuText),
+                    Text("Natural Resources", style: menuText),
+                    Text("Public Service", style: menuText),
+                    Text("Private Equity", style: menuText),
+                    Text("Retail", style: menuText),
+                    Text("Software and Platforms", style: menuText),
+                    Text("Travel", style: menuText),
+                    Text("Utilities", style: menuText),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+        ],
+      ),
+    );
+  }
+
+  Widget buildWhoWeAreMenu() {
+    return Container(
+      width: double.infinity,
+      color: Colors.black,
+      padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 50),
+
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // TOP TITLE -----------------------------------------
+          Row(
+            children: const [
+              Text(
+                "About Accenture",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(width: 10),
+              Icon(Icons.arrow_right_alt, color: Colors.purple, size: 30),
+            ],
+          ),
+
+          SizedBox(height: 40),
+
+          // 3 COLUMNS ------------------------------------------
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // COLUMN 1 -----------------------------
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text("Our organization",
+                        style: TextStyle(color: Colors.white70, fontSize: 18)),
+                    SizedBox(height: 20),
+
+                    Text("Awards and Recognition", style: menuText),
+                    Text("Corporate Sustainability", style: menuText),
+                    Text("Industry Analyst Recognition", style: menuText),
+                    Text("Leaders", style: menuText),
+                    Text("Locations", style: menuText),
+                    Text("360° Value Report", style: menuText),
+                  ],
+                ),
+              ),
+
+              SizedBox(width: 100),
+
+              // COLUMN 2 -----------------------------
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text("Media & Investors",
+                        style: TextStyle(color: Colors.white70, fontSize: 18)),
+                    SizedBox(height: 20),
+
+                    Text("Media Relations", style: menuText),
+                    Text("Investor Relations", style: menuText),
+                    Text("Board of Directors", style: menuText),
+                  ],
+                ),
+              ),
+
+              SizedBox(width: 100),
+
+              // COLUMN 3 -----------------------------
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text("How we serve",
+                        style: TextStyle(color: Colors.white70, fontSize: 18)),
+                    SizedBox(height: 20),
+
+                    Text("Strategy and Consulting", style: menuText),
+                    Text("Technology", style: menuText),
+                    Text("Operations", style: menuText),
+                    Text("Industry X", style: menuText),
+                    Text("Song", style: menuText),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildCareersMenu() {
+    return Container(
+      width: double.infinity,
+      color: Colors.black,
+      padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 50),
+
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // TOP TITLE -----------------------------------------
+          Row(
+            children: const [
+              Text(
+                "Careers homepage",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(width: 10),
+              Icon(Icons.arrow_right_alt, color: Colors.purple, size: 30),
+            ],
+          ),
+
+          SizedBox(height: 40),
+
+          // CONTENT: 3 COLUMNS --------------------------------
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              // COLUMN 1 : Find a job ------------------------
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text("Find a job",
+                        style: TextStyle(color: Colors.white70, fontSize: 18)),
+                    SizedBox(height: 20),
+
+                    Text("Search for jobs", style: menuText),
+                    Text("Career areas", style: menuText),
+                  ],
+                ),
+              ),
+
+              SizedBox(width: 100),
+
+              // COLUMN 2 : Life at Accenture ----------------
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text("Life at Accenture",
+                        style: TextStyle(color: Colors.white70, fontSize: 18)),
+                    SizedBox(height: 20),
+
+                    Text("Working here", style: menuText),
+                    Text("Benefits", style: menuText),
+                    Text("Work environment", style: menuText),
+                    Text("Careers blog", style: menuText),
+                  ],
+                ),
+              ),
+
+              SizedBox(width: 100),
+
+              // COLUMN 3 : How we hire ----------------------
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text("How we hire",
+                        style: TextStyle(color: Colors.white70, fontSize: 18)),
+                    SizedBox(height: 20),
+
+                    Text("Using AI", style: menuText),
+                    Text("Hiring journey", style: menuText),
+                    Text("Pro tips", style: menuText),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
+
 
 // Helper widget for news text
   Widget newsTextItem(String text, {double fontSize = 40}) {
@@ -261,73 +663,6 @@ class FooterLink extends StatelessWidget {
       ),
     );
   }
-}
-
-
-
-
-// ---------APPBAR
-PreferredSizeWidget buildAppbar(BuildContext context) {
-  return AppBar(
-    backgroundColor: Colors.black,
-    titleSpacing: 0,
-    toolbarHeight: 90,
-    title: Row(
-      children: [
-        // LOGO
-        Padding(
-          padding: const EdgeInsets.only(left: 40, top: 10),
-          child: SizedBox(
-            height: 60,
-            width: 90,
-            child: Image.asset('assets/Accenture-Emblem.png', fit: BoxFit.contain),
-          ),
-        ),
-
-        const SizedBox(width: 40),
-
-        // CENTER NAV ITEMS
-        if (!Responsive.isMobile(context))
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                NavItem(title: "What we do"),
-                NavItem(title: "What we think"),
-                NavItem(title: "Who we are"),
-                NavItem(title: "Careers"),
-              ],
-            ),
-          ),
-
-        // RIGHT SIDE SPACE (if mobile → no space)
-        if (!Responsive.isMobile(context)) const SizedBox(width: 20),
-      ],
-    ),
-
-    // RIGHT SIDE ACTIONS
-    actions: [
-      const Padding(
-        padding: EdgeInsets.only(top: 20, right: 20),
-        child: Icon(Icons.search, color: Colors.white),
-      ),
-
-      if (Responsive.isDesktop(context))
-        Padding(
-          padding: const EdgeInsets.only(top: 20, right: 50),
-          child: Row(
-            children: const [
-              Icon(Icons.language, color: Colors.white),
-              SizedBox(width: 10),
-              Text("United Kingdom",
-                  style: TextStyle(color: Colors.white, fontSize: 17)),
-              Icon(Icons.keyboard_arrow_down, color: Colors.white),
-            ],
-          ),
-        ),
-    ],
-  );
-
 }
 
 
@@ -565,17 +900,25 @@ Widget cardsSection(BuildContext context) {
 
 class NavItem extends StatelessWidget {
   final String title;
-  const NavItem({super.key, required this.title});
+  final VoidCallback? onTap;
+
+  const NavItem({super.key, required this.title, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18),
-      child: Text(title,
-          style: const TextStyle(color: Colors.white, fontSize: 18)),
+    return InkWell(
+      onTap: onTap,   // NOW CLICK WORKS
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        child: Text(
+          title,
+          style: const TextStyle(color: Colors.white, fontSize: 18),
+        ),
+      ),
     );
   }
 }
+
 
 // ------ CARD ITEM WIDGET
 
