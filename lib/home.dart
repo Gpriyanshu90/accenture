@@ -1033,8 +1033,6 @@ Widget cardsSection(BuildContext context) {
           image: "assets/card1.jpg",
         ),
 
-
-
         CardItem(
           label: "RESEARCH REPORT",
           title: "Destination net zero 2025",
@@ -1057,28 +1055,28 @@ Widget cardsSection(BuildContext context) {
         CardItem(
           label: "RESEARCH REPORT",
           title: "Sovereign AI: From managing risk to accelerating growth ",
-          description:"",
+          description:"Sovereign AI isn’t just a control play—it’s a game-changer for global competitiveness and cultural value. Discover how organizations are moving fast to secure their advantage and shape AI’s future, following four bold moves.",
           image: "assets/card5.jpg",
         ),
         CardItem(
           label: "CASE STUDY",
           title:
-              "4 critical actions to take now to strengthen your cyber defenses ",
-          description:"",
+          "4 critical actions to take now to strengthen your cyber defenses ",
+          description:"Cyber risks are growing faster than ever, outpacing security efforts. How do you get ahead of these threats? In this year’s State of Cybersecurity Resilience, learn the steps to build resilience as you embrace AI transformation.",
           image: "assets/card6.jpg",
         ),
         CardItem(
           label: "RESEARCH REPORT",
           title:
-              "Poste Italiane pivots from postal service to national platform ",
-          description:"",
+          "Poste Italiane pivots from postal service to national platform ",
+          description:"Traditional workflows, functions jobs and skills will evolve with gen AI. Learn how you can accelerate reinvention with an operating model that holistically integrates tech, talent and processes to drive sustainable growth.",
           image: "assets/card7.jpg",
         ),
         CardItem(
           label: "CASE STUDY",
           title:
-              "Bristol Myers Squibb accelerates drug development with generative AI",
-          description:"",
+          "Bristol Myers Squibb accelerates drug development with generative AI",
+          description:"Modernization isn’t just about adding tools—it’s about ensuring great experiences for residents and those who serve them. Agencies that align technology with human needs turn digital investments into enduring public value.",
           image: "assets/card8.jpg",
         ),
       ],
@@ -1157,6 +1155,8 @@ class CardItem extends StatefulWidget {
 
 class _CardItemState extends State<CardItem> {
   bool isHovered = false;
+  bool isExploreExpanded = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -1212,7 +1212,7 @@ class _CardItemState extends State<CardItem> {
               // ------------------------------------
               AnimatedPositioned(
                 duration: Duration(milliseconds: 300),
-                bottom: isHovered ? -50 : 30,
+                top: isHovered ? -50 : 30,
                 left: 20,
                 right: 20,
                 child: AnimatedOpacity(
@@ -1229,7 +1229,7 @@ class _CardItemState extends State<CardItem> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: 50),
                       Text(
                         widget.title,
                         style: TextStyle(
@@ -1294,20 +1294,47 @@ class _CardItemState extends State<CardItem> {
 
                       Spacer(),
 
-                      Row(
-                        children: [
-                          Text(
-                            "Explore",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            isExploreExpanded = !isExploreExpanded; // toggle animation
+                          });
+                        },
+
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 250),
+
+                          child: Row(
+                            children: [
+                              Text(
+                                "Explore",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+
+                              AnimatedContainer(
+                                duration: Duration(milliseconds: 250),
+                                width: isExploreExpanded ? 14 : 6, // expand spacing
+                              ),
+
+                              AnimatedOpacity(
+                                duration: Duration(milliseconds: 250),
+                                opacity: isExploreExpanded ? 1 : 0.5, // fade effect
+
+                                child: AnimatedPadding(
+                                  duration: Duration(milliseconds: 250),
+                                  padding: EdgeInsets.only(left: isExploreExpanded ? 6 : 0),
+                                  child: Icon(Icons.chevron_right, color: Colors.white),
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(width: 8),
-                          Icon(Icons.arrow_right_alt, color: Colors.white)
-                        ],
+                        ),
                       )
+
                     ],
                   ),
                 ),
