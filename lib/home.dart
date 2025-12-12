@@ -524,7 +524,7 @@ class _PageLayoutState extends State<PageLayout> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // TOP TITLE -----------------------------------------
+          // APP BAR WHO TOP TITLE -----------------------------------------
           Row(
             children: const [
               Text(
@@ -1027,56 +1027,75 @@ Widget cardsSection(BuildContext context) {
         CardItem(
           label: "RESEARCH REPORT",
           title:
-          "Holiday Shopping 2025: Tis the season for smarter spending and renewed confidence",
+              "Holiday Shopping 2025: Tis the season for smarter spending and renewed confidence",
           description:
-          "Holiday shoppers, facing decision stress and high prices, are seeking value combined with experience, convenience and connection. Many are turning to Gen AI for inspiration, product comparisons and smarter shortlists.",
+              "Holiday shoppers, facing decision stress and high prices, "
+                  "are seeking value combined with experience, convenience and connection. "
+                  "Many are turning to Gen AI for inspiration, product comparisons and smarter shortlists.",
           image: "assets/card1.jpg",
         ),
 
         CardItem(
           label: "RESEARCH REPORT",
           title: "Destination net zero 2025",
-          description:"How leading companies are scaling decarbonization that delivers business value—and why that’s the key to lasting impact.",
+          description:
+              "How leading companies are scaling decarbonization that delivers business value—and why that’s the key to lasting impact.",
           image: "assets/card2.jpg",
         ),
         CardItem(
           label: "RESEARCH REPORT",
           title: "Learning, reinvented: Accelerating human-AI collaboration",
-          description:"Humans and AI must learn and adapt together through continuous co-learning. Yet only 11% of organizations are currently equipped to do so effectively, creating an urgent gap and a significant opportunity.",
+          description:
+              "Humans and AI must learn and adapt together through continuous co-learning. "
+                  "Yet only 11% of organizations are currently equipped to do so effectively, "
+                  "creating an urgent gap and a significant opportunity.",
           image: "assets/card3.jpg",
         ),
         CardItem(
           label: "CASE STUDY",
           title: "AI and your operating model: Radically new ways of working ",
-          description:"AI is reshaping markets as  moves to companies with Value Leader DNA—six behaviors that help them monetize smarter, innovate faster and build durable, future-ready growth.",
+          description:
+              "AI is reshaping markets as  moves to companies with Value Leader DNA—six behaviors that help them monetize smarter, "
+                  "innovate faster and build durable, future-ready growth.",
           image: "assets/card4.jpg",
         ),
-//$27T
+        //$27T
         CardItem(
           label: "RESEARCH REPORT",
           title: "Sovereign AI: From managing risk to accelerating growth ",
-          description:"Sovereign AI isn’t just a control play—it’s a game-changer for global competitiveness and cultural value. Discover how organizations are moving fast to secure their advantage and shape AI’s future, following four bold moves.",
+          description:
+              "Sovereign AI isn’t just a control play—it’s a game-changer for global competitiveness and cultural value. "
+                  "Discover how organizations are moving fast to secure their advantage and shape AI’s future, "
+                  "following four bold moves.",
           image: "assets/card5.jpg",
         ),
         CardItem(
           label: "CASE STUDY",
           title:
-          "4 critical actions to take now to strengthen your cyber defenses ",
-          description:"Cyber risks are growing faster than ever, outpacing security efforts. How do you get ahead of these threats? In this year’s State of Cybersecurity Resilience, learn the steps to build resilience as you embrace AI transformation.",
+              "4 critical actions to take now to strengthen your cyber defenses ",
+          description:
+              "Cyber risks are growing faster than ever, outpacing security efforts. "
+                  "How do you get ahead of these threats? In this year’s State of Cybersecurity Resilience, "
+                  "learn the steps to build resilience as you embrace AI transformation.",
           image: "assets/card6.jpg",
         ),
         CardItem(
           label: "RESEARCH REPORT",
           title:
-          "Poste Italiane pivots from postal service to national platform ",
-          description:"Traditional workflows, functions jobs and skills will evolve with gen AI. Learn how you can accelerate reinvention with an operating model that holistically integrates tech, talent and processes to drive sustainable growth.",
+              "Poste Italiane pivots from postal service to national platform ",
+          description:
+              "Traditional workflows, functions jobs and skills will evolve with gen AI. "
+                  "Learn how you can accelerate reinvention with an operating model that holistically integrates tech, "
+                  "talent and processes to drive sustainable growth.",
           image: "assets/card7.jpg",
         ),
         CardItem(
           label: "CASE STUDY",
           title:
-          "Bristol Myers Squibb accelerates drug development with generative AI",
-          description:"Modernization isn’t just about adding tools—it’s about ensuring great experiences for residents and those who serve them. Agencies that align technology with human needs turn digital investments into enduring public value.",
+              "Bristol Myers Squibb accelerates drug development with generative AI",
+          description:
+              "Modernization isn’t just about adding tools—it’s about ensuring great experiences for residents and those who serve them."
+                  " Agencies that align technology with human needs turn digital investments into enduring public value.",
           image: "assets/card8.jpg",
         ),
       ],
@@ -1138,25 +1157,23 @@ class CardItem extends StatefulWidget {
   final String label;
   final String title;
   final String image;
-  final String? description;  // <-- ADD THIS
+  final String? description; // <-- ADD THIS
 
   const CardItem({
     super.key,
     required this.label,
     required this.title,
     required this.image,
-    this.description,   // <-- ADD THIS
+    this.description, // <-- ADD THIS
   });
 
   @override
   State<CardItem> createState() => _CardItemState();
 }
 
-
 class _CardItemState extends State<CardItem> {
   bool isHovered = false;
   bool isExploreExpanded = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -1169,8 +1186,7 @@ class _CardItemState extends State<CardItem> {
         curve: Curves.easeOut,
         height: 500,
         width: 320,
-        transform: Matrix4.identity()
-          ..translate(0, isHovered ? -10 : 0),
+        transform: Matrix4.identity()..translate(0, isHovered ? -10 : 0),
 
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14),
@@ -1179,7 +1195,7 @@ class _CardItemState extends State<CardItem> {
               color: Colors.black.withOpacity(isHovered ? 0.4 : 0.2),
               blurRadius: isHovered ? 20 : 10,
               offset: Offset(0, isHovered ? 12 : 6),
-            )
+            ),
           ],
         ),
 
@@ -1225,7 +1241,7 @@ class _CardItemState extends State<CardItem> {
                         widget.label,
                         style: TextStyle(
                           color: Colors.white70,
-                          fontSize: 14,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -1234,7 +1250,7 @@ class _CardItemState extends State<CardItem> {
                         widget.title,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 22,
+                          fontSize: 23,
                           height: 1.2,
                           fontWeight: FontWeight.bold,
                         ),
@@ -1245,8 +1261,8 @@ class _CardItemState extends State<CardItem> {
               ),
 
               // ------------------------------------
-// FULL TEXT CARD (HOVER MODE)
-// ------------------------------------
+              // FULL TEXT CARD (HOVER MODE)
+              // ------------------------------------
               AnimatedOpacity(
                 duration: Duration(milliseconds: 350),
                 opacity: isHovered ? 1.0 : 0.0,
@@ -1297,7 +1313,8 @@ class _CardItemState extends State<CardItem> {
                       InkWell(
                         onTap: () {
                           setState(() {
-                            isExploreExpanded = !isExploreExpanded; // toggle animation
+                            isExploreExpanded =
+                                !isExploreExpanded; // toggle animation
                           });
                         },
 
@@ -1317,29 +1334,36 @@ class _CardItemState extends State<CardItem> {
 
                               AnimatedContainer(
                                 duration: Duration(milliseconds: 250),
-                                width: isExploreExpanded ? 14 : 6, // expand spacing
+                                width: isExploreExpanded
+                                    ? 14
+                                    : 6, // expand spacing
                               ),
 
                               AnimatedOpacity(
                                 duration: Duration(milliseconds: 250),
-                                opacity: isExploreExpanded ? 1 : 0.5, // fade effect
+                                opacity: isExploreExpanded
+                                    ? 1
+                                    : 0.5, // fade effect
 
                                 child: AnimatedPadding(
                                   duration: Duration(milliseconds: 250),
-                                  padding: EdgeInsets.only(left: isExploreExpanded ? 6 : 0),
-                                  child: Icon(Icons.chevron_right, color: Colors.white),
+                                  padding: EdgeInsets.only(
+                                    left: isExploreExpanded ? 6 : 0,
+                                  ),
+                                  child: Icon(
+                                    Icons.chevron_right,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      )
-
+                      ),
                     ],
                   ),
                 ),
               ),
-
             ],
           ),
         ),
@@ -1348,11 +1372,7 @@ class _CardItemState extends State<CardItem> {
   }
 }
 
-
 //Image hover include code design
-
-
-
 // ----- QUOTE SECTION  360 image
 
 class QuoteSection extends StatelessWidget {
@@ -1501,8 +1521,6 @@ class QuoteSection extends StatelessWidget {
 
 // -------- SLIDE SECTION
 
-// -------- SLIDE SECTION  (UPDATED WITH WORKING SLIDER)
-
 class SlideSection extends StatefulWidget {
   const SlideSection({super.key});
 
@@ -1613,7 +1631,7 @@ class _SlideSectionState extends State<SlideSection> {
                   ),
           ),
 
-          const SizedBox(height: 100),
+           SizedBox(height: 80),
 
           //
           // WORKING SLIDE CONTROLS
@@ -1644,7 +1662,7 @@ class _SlideSectionState extends State<SlideSection> {
             ],
           ),
 
-          const SizedBox(height: 250),
+          const SizedBox(height: 280),
 
           // BOTTOM CONTENT (unchanged)
           Text(
