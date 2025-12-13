@@ -767,116 +767,116 @@ class _PageLayoutState extends State<PageLayout> {
 
 Widget bannerSection(BuildContext context) {
   // ---------------- MOBILE ----------------
-  // if (Responsive.isMobile(context)) {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(20),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         const Text(
-  //           "TOGETHER WE",
-  //           style: TextStyle(
-  //             color: Colors.white,
-  //             fontSize: 40,
-  //             fontWeight: FontWeight.bold,
-  //           ),
-  //         ),
-  //
-  //         const SizedBox(height: 10),
-  //
-  //         Row(
-  //           children: const [
-  //             Text(
-  //               "REIN",
-  //               style: TextStyle(
-  //                 color: Colors.white,
-  //                 fontSize: 55,
-  //                 fontWeight: FontWeight.bold,
-  //               ),
-  //             ),
-  //             SizedBox(width: 5),
-  //             Text(
-  //               ">",
-  //               style: TextStyle(
-  //                 color: Colors.purple,
-  //                 fontSize: 80,
-  //                 fontWeight: FontWeight.bold,
-  //               ),
-  //             ),
-  //             SizedBox(width: 5),
-  //             Text(
-  //               "ENTED",
-  //               style: TextStyle(
-  //                 color: Colors.white,
-  //                 fontSize: 55,
-  //                 fontWeight: FontWeight.bold,
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //
-  //         const SizedBox(height: 25),
-  //         rightSideText(),
-  //       ],
-  //     ),
-  //   );
-  // }
-  //
-  // // ---------------- TABLET ----------------
-  // if (Responsive.isTablet(context)) {
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 50),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         const Text(
-  //           "TOGETHER WE",
-  //           style: TextStyle(
-  //             color: Colors.white,
-  //             fontSize: 70,
-  //             fontWeight: FontWeight.bold,
-  //           ),
-  //         ),
-  //
-  //         const SizedBox(height: 20),
-  //
-  //         Row(
-  //           children: const [
-  //             Text(
-  //               "REIN",
-  //               style: TextStyle(
-  //                 color: Colors.white,
-  //                 fontSize: 80,
-  //                 fontWeight: FontWeight.bold,
-  //               ),
-  //             ),
-  //             SizedBox(width: 5),
-  //             Text(
-  //               ">",
-  //               style: TextStyle(
-  //                 color: Colors.purple,
-  //                 fontSize: 120,
-  //                 fontWeight: FontWeight.bold,
-  //               ),
-  //             ),
-  //             SizedBox(width: 5),
-  //             Text(
-  //               "ENTED",
-  //               style: TextStyle(
-  //                 color: Colors.white,
-  //                 fontSize: 80,
-  //                 fontWeight: FontWeight.bold,
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //
-  //         const SizedBox(height: 40),
-  //         rightSideText(),
-  //       ],
-  //     ),
-  //   );
-  // }
+  if (Responsive.isMobile(context)) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "TOGETHER WE",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          Row(
+            children: const [
+              Text(
+                "REIN",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 55,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(width: 5),
+              Text(
+                ">",
+                style: TextStyle(
+                  color: Colors.purple,
+                  fontSize: 80,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(width: 5),
+              Text(
+                "ENTED",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 55,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 25),
+          rightSideText(),
+        ],
+      ),
+    );
+  }
+
+  // ---------------- TABLET ----------------
+  if (Responsive.isTablet(context)) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 50),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "TOGETHER WE",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 70,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+
+          const SizedBox(height: 20),
+
+          Row(
+            children: const [
+              Text(
+                "REIN",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 80,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(width: 5),
+              Text(
+                ">",
+                style: TextStyle(
+                  color: Colors.purple,
+                  fontSize: 120,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(width: 5),
+              Text(
+                "ENTED",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 80,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 40),
+          rightSideText(),
+        ],
+      ),
+    );
+  }
 
   // ---------------- DESKTOP ----------------
   return Padding(
@@ -1030,8 +1030,8 @@ Widget cardsSection(BuildContext context) {
               "Holiday Shopping 2025: Tis the season for smarter spending and renewed confidence",
           description:
               "Holiday shoppers, facing decision stress and high prices, "
-                  "are seeking value combined with experience, convenience and connection. "
-                  "Many are turning to Gen AI for inspiration, product comparisons and smarter shortlists.",
+              "are seeking value combined with experience, convenience and connection. "
+              "Many are turning to Gen AI for inspiration, product comparisons and smarter shortlists.",
           image: "assets/card1.jpg",
         ),
 
@@ -1047,8 +1047,8 @@ Widget cardsSection(BuildContext context) {
           title: "Learning, reinvented: Accelerating human-AI collaboration",
           description:
               "Humans and AI must learn and adapt together through continuous co-learning. "
-                  "Yet only 11% of organizations are currently equipped to do so effectively, "
-                  "creating an urgent gap and a significant opportunity.",
+              "Yet only 11% of organizations are currently equipped to do so effectively, "
+              "creating an urgent gap and a significant opportunity.",
           image: "assets/card3.jpg",
         ),
         CardItem(
@@ -1056,7 +1056,7 @@ Widget cardsSection(BuildContext context) {
           title: "AI and your operating model: Radically new ways of working ",
           description:
               "AI is reshaping markets as  moves to companies with Value Leader DNA—six behaviors that help them monetize smarter, "
-                  "innovate faster and build durable, future-ready growth.",
+              "innovate faster and build durable, future-ready growth.",
           image: "assets/card4.jpg",
         ),
         //$27T
@@ -1065,8 +1065,8 @@ Widget cardsSection(BuildContext context) {
           title: "Sovereign AI: From managing risk to accelerating growth ",
           description:
               "Sovereign AI isn’t just a control play—it’s a game-changer for global competitiveness and cultural value. "
-                  "Discover how organizations are moving fast to secure their advantage and shape AI’s future, "
-                  "following four bold moves.",
+              "Discover how organizations are moving fast to secure their advantage and shape AI’s future, "
+              "following four bold moves.",
           image: "assets/card5.jpg",
         ),
         CardItem(
@@ -1075,8 +1075,8 @@ Widget cardsSection(BuildContext context) {
               "4 critical actions to take now to strengthen your cyber defenses ",
           description:
               "Cyber risks are growing faster than ever, outpacing security efforts. "
-                  "How do you get ahead of these threats? In this year’s State of Cybersecurity Resilience, "
-                  "learn the steps to build resilience as you embrace AI transformation.",
+              "How do you get ahead of these threats? In this year’s State of Cybersecurity Resilience, "
+              "learn the steps to build resilience as you embrace AI transformation.",
           image: "assets/card6.jpg",
         ),
         CardItem(
@@ -1085,8 +1085,8 @@ Widget cardsSection(BuildContext context) {
               "Poste Italiane pivots from postal service to national platform ",
           description:
               "Traditional workflows, functions jobs and skills will evolve with gen AI. "
-                  "Learn how you can accelerate reinvention with an operating model that holistically integrates tech, "
-                  "talent and processes to drive sustainable growth.",
+              "Learn how you can accelerate reinvention with an operating model that holistically integrates tech, "
+              "talent and processes to drive sustainable growth.",
           image: "assets/card7.jpg",
         ),
         CardItem(
@@ -1095,7 +1095,7 @@ Widget cardsSection(BuildContext context) {
               "Bristol Myers Squibb accelerates drug development with generative AI",
           description:
               "Modernization isn’t just about adding tools—it’s about ensuring great experiences for residents and those who serve them."
-                  " Agencies that align technology with human needs turn digital investments into enduring public value.",
+              " Agencies that align technology with human needs turn digital investments into enduring public value.",
           image: "assets/card8.jpg",
         ),
       ],
@@ -1186,13 +1186,13 @@ class _CardItemState extends State<CardItem> {
         curve: Curves.easeOut,
         height: 500,
         width: 320,
-        transform: Matrix4.identity()..translate(0, isHovered ? -10 : 0),
+        // transform: Matrix4.identity()..translate(0.0, isHovered ? -10.0 : 0.0),
 
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(isHovered ? 0.4 : 0.2),
+              // color: Colors.black.withOpacity(isHovered ? 0.4 : 0.2),
               blurRadius: isHovered ? 20 : 10,
               offset: Offset(0, isHovered ? 12 : 6),
             ),
@@ -1220,7 +1220,7 @@ class _CardItemState extends State<CardItem> {
               // DARK OVERLAY (BRIGHTER ON HOVER)
               AnimatedContainer(
                 duration: Duration(milliseconds: 300),
-                color: Colors.black.withOpacity(isHovered ? 0.75 : 0.25),
+                // color: Colors.black.withOpacity(isHovered ? 0.75 : 0.25),
               ),
 
               // ------------------------------------
@@ -1269,7 +1269,7 @@ class _CardItemState extends State<CardItem> {
 
                 child: Container(
                   padding: EdgeInsets.all(24),
-                  color: Colors.black.withOpacity(0.85),
+                  // color: Colors.black.withOpacity(0.85),
 
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1296,7 +1296,7 @@ class _CardItemState extends State<CardItem> {
 
                       SizedBox(height: 16),
 
-                      // ⭐ ADD DESCRIPTION HERE
+                      //  ADD DESCRIPTION HERE
                       Text(
                         widget.description ?? "",
                         style: TextStyle(
@@ -1631,7 +1631,7 @@ class _SlideSectionState extends State<SlideSection> {
                   ),
           ),
 
-           SizedBox(height: 80),
+          SizedBox(height: 80),
 
           //
           // WORKING SLIDE CONTROLS
@@ -1782,7 +1782,7 @@ class _SlideSectionState extends State<SlideSection> {
     );
   }
 
-  // -----------careersText                                    SAME CAREERS
+  // -------careersText
   Widget careersText() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
